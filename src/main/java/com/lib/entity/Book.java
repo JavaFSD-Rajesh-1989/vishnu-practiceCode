@@ -27,10 +27,10 @@ public class Book {
 	private Status status = Status.AVAILABLE;
 	
 	
-	enum Status{
+	public enum Status{
 		AVAILABLE, BORROWED
 	}
-	enum Genre{
+	 public enum Genre{
 		FICTION,NON_FICTION,SCIENCE,DRAMA
 	}
     @ManyToOne

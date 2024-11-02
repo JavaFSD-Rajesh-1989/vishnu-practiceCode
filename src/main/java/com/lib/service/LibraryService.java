@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.lib.Exception.BookAlredyExistException;
 import com.lib.entity.Author;
 import com.lib.entity.Book;
+import com.lib.entity.BorrowingRecord;
+import com.lib.entity.User;
 import com.lib.repo.AutherRepo;
 import com.lib.repo.BookRepo;
 import com.lib.repo.BorrowingRecordRepo;
@@ -41,5 +43,26 @@ public class LibraryService {
 		return bookRepo.save(book);
 	}
 
+	 public BorrowingRecord borrowBook(Long bookId, Long userId) {
+	        Optional<Book> bookOptional = bookRepo.findById(bookId);
+	        Optional<User> userOptional = userRepo.findById(userId);
+	        if (bookOptional.isPresent() && userOptional.isPresent()) {
+	            Book book = bookOptional.get();
+	            if (book.getStatus().equals("AVALIABLE") ) {
+	                book.setStatus(Book.Status.BORROWED);
+	                bookRepo.save(book);
+	                BorrowingRecord record = new BorrowingRecord();
+	                record.setBook(book);
+	                record.setUser(userOptional.get());
+	                return borrowRepo.save(record);
+	            } else {
+	                throw new RuntimeException("Book not available for borrowing");
+	            }
+	        } else {
+	            throw new RuntimeException("Book or User not found");
+	        }
+	    }
+
+	
   
 }
