@@ -21,6 +21,14 @@ public StudentService() {
 		
 		return dao.getAllStudents();
 	}
+	public Student getStudeentByEmail(String email) {
+		
+		return dao.getStudeentByEmail(email);
+	}
+	public String deleteStudent(String email) {
+	
+		return dao.deleteStudent(email);
+	}
 
 	
 

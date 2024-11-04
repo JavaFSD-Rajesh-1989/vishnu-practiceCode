@@ -44,6 +44,7 @@ public class StudentDao {
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()) {
 				Student student=new Student();
+			    
 				student.setName(rs.getString("name"));
 				student.setEmail(rs.getString("email"));
 				student.setGender(rs.getString("gender"));
@@ -58,6 +59,46 @@ public class StudentDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public Student getStudeentByEmail(String email) {
+		try {
+			PreparedStatement ps=con.prepareStatement("select * from student where email=?");
+			ps.setString(1,email);
+			ResultSet rs=ps.executeQuery();
+			Student student=new Student();
+			while(rs.next()) {
+				
+			    student.setId(rs.getLong("id"));
+				student.setName(rs.getString("name"));
+				student.setEmail(rs.getString("email"));
+				student.setGender(rs.getString("gender"));
+				student.setBranch(rs.getString("branch"));
+				student.setDateofBirth(rs.getDate("dateofbirth").toLocalDate());
+				
+               
+			}
+			return student;
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String deleteStudent(String email) {
+		try {
+			PreparedStatement ps=con.prepareStatement("delete from student where email=?");
+			ps.setString(1, email);
+			int n=ps.executeUpdate();
+			if(n>0) {
+				return "deleted Successfully";
+			}
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		return "failed" ;
 	}
 
 }

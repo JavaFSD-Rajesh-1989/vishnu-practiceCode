@@ -9,6 +9,15 @@
 <title>Student List</title>
 </head>
 <body>
+<% 
+    String message = (String) session.getAttribute("msg");  // Retrieve message from session
+    if (message != null) {
+        out.print("<p>" + message + "</p>");
+        session.removeAttribute("msg");  // Clear message from session after displaying
+    }
+%>
+
+
 <table border="1">
 <tr>
     <th>Name</th>
@@ -29,6 +38,7 @@ if (students != null && !students.isEmpty()) { // Check if the list is not empty
     <td><%= student.getBranch() %></td>
     <td><%= student.getDateofBirth() %></td>
     <td><a href="updateStudent?email=<%= student.getEmail()%>">UpdateStudent</a></td>
+     <td><a href="deleteStudent?email=<%= student.getEmail()%>">Delete</a></td>
 </tr>
 <%
     }
