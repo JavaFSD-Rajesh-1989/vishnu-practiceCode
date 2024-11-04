@@ -27,7 +27,8 @@ if (students != null && !students.isEmpty()) { // Check if the list is not empty
     <td><%= student.getEmail() %></td>
     <td><%= student.getGender() %></td>
     <td><%= student.getBranch() %></td>
-    <td><%= student.getDateofBirth() %></td> <!-- Ensure this returns a suitable format -->
+    <td><%= student.getDateofBirth() %></td>
+    <td><a href="updateStudent?email=<%= student.getEmail()%>">UpdateStudent</a></td>
 </tr>
 <%
     }
